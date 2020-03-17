@@ -28,8 +28,29 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Create fleet of aliens"""
-        #Make an alien
+        #Make an alien and find the number of aliens in a row
         alien = Alien(self)
+        alien_width, alien_height = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+        
+        #Determine the number of rows that will fit on the screen
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+        number_rows = available_space_y // (2 * alien_height)
+
+        #Create the full fleet of aliens
+        for row_number in range(number_rows)
+            for alien_number in range(number_aliens_x):
+                self.createAlien(alien_number, row_number)
+    
+    def _create_alien(self, alien_number, row_number):
+        """Create an alien and place it in the row"""
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.width
+        alien.x = alien.width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
     
     def run_game(self):
